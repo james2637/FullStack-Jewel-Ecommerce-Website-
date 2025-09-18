@@ -10,11 +10,12 @@ const Collection = () => {
   const [filterProducts, setFilterProducts] = useState([]);
   const [category, setCategory] = useState([]);
   const [subCategory, setSubCategory] = useState([]);
+  const [type, setType] = useState([]);
   const [sortType, setSortType] = useState("relevant");
 
   const toggleCategory = (event) => {
     if (category.includes(event.target.value)) {
-      setCategory((prev) => prev.filter((item) => item != event.target.value));
+      setCategory((prev) => prev.filter((item) => item !== event.target.value));
     } else {
       setCategory((prev) => [...prev, event.target.value]);
     }
@@ -23,10 +24,18 @@ const Collection = () => {
   const toggleSubcategory = (event) => {
     if (subCategory.includes(event.target.value)) {
       setSubCategory((prev) =>
-        prev.filter((item) => item != event.target.value)
+        prev.filter((item) => item !== event.target.value)
       );
     } else {
       setSubCategory((prev) => [...prev, event.target.value]);
+    }
+  };
+
+  const toggleType = (event) => {
+    if (type.includes(event.target.value)) {
+      setType((prev) => prev.filter((item) => item !== event.target.value));
+    } else {
+      setType((prev) => [...prev, event.target.value]);
     }
   };
 
@@ -41,6 +50,9 @@ const Collection = () => {
       productsCopy = productsCopy.filter((item) =>
         subCategory.includes(item.subCategory)
       );
+    }
+    if (type.length > 0) {
+      productsCopy = productsCopy.filter((item) => type.includes(item.type));
     }
     if (showSearch && search) {
       productsCopy = productsCopy.filter((item) =>
@@ -67,7 +79,7 @@ const Collection = () => {
 
   useEffect(() => {
     applyFilter();
-  }, [category, subCategory, search, showSearch, products]);
+  }, [category, subCategory, type, search, showSearch, products]);
 
   useEffect(() => {
     sortProduct();
@@ -76,7 +88,7 @@ const Collection = () => {
   return (
     <div className="flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10 border-t">
       {/* Left: Filter Options*/}
-      <div className="min-w-60">
+      <div className="min-w-60 p-4">
         <p
           className="my-2 text-xl flex items-center cursor-pointer gap-2"
           onClick={() => setShowFilter(!showFilter)}
@@ -100,28 +112,28 @@ const Collection = () => {
               <input
                 type="checkbox"
                 className="w-3"
-                value={"Men"}
+                value={"Gold"}
                 onChange={toggleCategory}
               />{" "}
-              Men
+              Gold
             </p>
             <p className="flex gap-2">
               <input
                 type="checkbox"
                 className="w-3"
-                value={"Women"}
+                value={"Silver"}
                 onChange={toggleCategory}
               />{" "}
-              Women
+              Silver
             </p>
             <p className="flex gap-2">
               <input
                 type="checkbox"
                 className="w-3"
-                value={"Kids"}
+                value={"Diamond"}
                 onChange={toggleCategory}
               />{" "}
-              Kids
+              Diamond
             </p>
           </div>
         </div>
@@ -137,34 +149,25 @@ const Collection = () => {
               <input
                 type="checkbox"
                 className="w-3"
-                value={"Topwear"}
-                onChange={toggleSubcategory}
+                value={"Men Jewellery"}
+                onChange={toggleType}
               />{" "}
-              Topwear
+              Men Jewellery
             </p>
             <p className="flex gap-2">
               <input
                 type="checkbox"
                 className="w-3"
-                value={"Bottomwear"}
-                onChange={toggleSubcategory}
+                value={"Women Jewellery"}
+                onChange={toggleType}
               />{" "}
-              Bottomwear
-            </p>
-            <p className="flex gap-2">
-              <input
-                type="checkbox"
-                className="w-3"
-                value={"Winterwear"}
-                onChange={toggleSubcategory}
-              />{" "}
-              Winterwear
+              Women Jewellery
             </p>
           </div>
         </div>
       </div>
       {/* Right Side */}
-      <div className="flex-1">
+      <div className="flex-1 px-4">
         <div className="flex justify-between text-base sm:text-2xl mb-4">
           <Title text1="ALL" text2="COLLECTIONS" />
           {/* Product Sort */}
