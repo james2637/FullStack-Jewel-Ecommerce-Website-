@@ -75,7 +75,7 @@ const Navbar = () => {
               <NavLink to="/gold-bracelet" className="block px-4 py-2 hover:bg-yellow-50 hover:underline underline-offset-4">Gold Bracelet</NavLink>
               <NavLink to="/gold-ring" className="block px-4 py-2 hover:bg-yellow-50 hover:underline underline-offset-4">Gold Ring</NavLink>
               <NavLink to="/gold-earring" className="block px-4 py-2 hover:bg-yellow-50 hover:underline underline-offset-4">Gold Earring</NavLink>
-              <NavLink to="/gold-all" className="block px-4 py-2 hover:bg-yellow-50 hover:underline underline-offset-4">All Gold</NavLink>
+              <NavLink to="/gold-nosering" className="block px-4 py-2 hover:bg-yellow-50 hover:underline underline-offset-4">Gold Nose Ring</NavLink>
             </div>
           </div>
 
@@ -90,7 +90,7 @@ const Navbar = () => {
               <NavLink to="/silver-bracelet" className="block px-4 py-2 hover:bg-gray-50 hover:underline underline-offset-4">Silver Bracelet</NavLink>
               <NavLink to="/silver-ring" className="block px-4 py-2 hover:bg-gray-50 hover:underline underline-offset-4">Silver Ring</NavLink>
               <NavLink to="/silver-earring" className="block px-4 py-2 hover:bg-gray-50 hover:underline underline-offset-4">Silver Earring</NavLink>
-              <NavLink to="/silver-all" className="block px-4 py-2 hover:bg-gray-50 hover:underline underline-offset-4">All Silver</NavLink>
+              <NavLink to="/silver-nosering" className="block px-4 py-2 hover:bg-gray-50 hover:underline underline-offset-4">Silver Nose Ring</NavLink>
             </div>
           </div>
 
