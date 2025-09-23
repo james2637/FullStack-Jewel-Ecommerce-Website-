@@ -9,11 +9,10 @@ The **backend is private**, and this website was **fully developed and maintaine
 
 ## 📷 Preview
 
-<img width="400" height="300" alt="image" src="./screenshot.png" />
+<img width="400" height="300" alt="image" src="Screenshot.png" />
 <!-- <img width="400" height="300" alt="image" src="./screenshot2.png" />
 <img width="400" height="300" alt="image" src="./screenshot3.png" /> -->
 
-*(Replace these with actual screenshots of your site or hosted image links)*
 
 ---
 
