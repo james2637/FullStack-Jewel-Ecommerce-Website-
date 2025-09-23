@@ -201,7 +201,7 @@ const Navbar = () => {
 
         {/* Sidebar menu for small screens */}
         <div
-          className={`absolute top-0 right-0 bottom-0 overflow-hidden bg-white transition-all ${
+          className={`fixed top-0 right-0 bottom-0 overflow-hidden bg-white transition-all z-[60] ${
             visible ? "w-full" : "w-0"
           }`}
         >
@@ -256,13 +256,13 @@ const Navbar = () => {
             >
               CONTACT
             </NavLink>
-            <NavLink
+            {/* <NavLink
               to="/admin-panel"
               className="py-2 pl-6 border"
               onClick={() => setVisible(false)}
             >
               ADMIN PANEL
-            </NavLink>
+            </NavLink> */}
             {/* Search Bar (Mobile) */}
             <div className="px-6 py-2">
               <input

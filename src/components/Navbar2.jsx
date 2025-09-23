@@ -66,7 +66,7 @@ const navItems = [
 ];
 
 const Navbar2 = () => (
-	<nav className="w-full bg-white shadow">
+	<nav className="w-full bg-white shadow hidden sm:block">
 		<div className="px-2 sm:px-[2vw] md:px-[3vw] lg:px-[4vw] flex items-center h-16">
 			<ul className="flex gap-8">
 				{navItems.map((item) => (
