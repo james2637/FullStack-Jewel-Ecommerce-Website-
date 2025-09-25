@@ -19,6 +19,7 @@ const Navbar = () => {
   const [searchLoading, setSearchLoading] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const [promoIndex, setPromoIndex] = useState(0);
+  const [openDropdown, setOpenDropdown] = useState(null); // 'gold' | 'silver' | null
   const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
   const [mobileSearchQuery, setMobileSearchQuery] = useState("");
   const [mobileSearchResults, setMobileSearchResults] = useState([]);
@@ -140,34 +141,56 @@ const Navbar = () => {
           </NavLink>
 
           {/* Gold Dropdown */}
-          <div className="relative group">
+          <li
+            className="relative"
+            onMouseEnter={() => setOpenDropdown('gold')}
+            onMouseLeave={() => setOpenDropdown(null)}
+            style={{ listStyle: 'none' }}
+          >
             <button className="flex flex-col items-center gap-1 hover:underline underline-offset-4">
               <p>GOLD</p>
               <hr className="w-2/4 border-none h-[1.5px] bg-yellow-600 hidden" />
             </button>
-            <div className="absolute left-0 top-full min-w-[160px] bg-white shadow-lg rounded z-10 hidden group-hover:block">
-              <NavLink to="/gold-chain" className="block px-4 py-2 hover:bg-yellow-50 hover:underline underline-offset-4">Gold Chain</NavLink>
-              <NavLink to="/gold-bracelet" className="block px-4 py-2 hover:bg-yellow-50 hover:underline underline-offset-4">Gold Bracelet</NavLink>
-              <NavLink to="/gold-ring" className="block px-4 py-2 hover:bg-yellow-50 hover:underline underline-offset-4">Gold Ring</NavLink>
-              <NavLink to="/gold-earring" className="block px-4 py-2 hover:bg-yellow-50 hover:underline underline-offset-4">Gold Earring</NavLink>
-              <NavLink to="/gold-nosering" className="block px-4 py-2 hover:bg-yellow-50 hover:underline underline-offset-4">Gold Nose Ring</NavLink>
-            </div>
-          </div>
+            {openDropdown === 'gold' && (
+              <div
+                className="absolute left-0 top-full min-w-[160px] bg-white shadow-lg rounded z-50 pointer-events-auto mt-0"
+                onMouseEnter={() => setOpenDropdown('gold')}
+                onMouseLeave={() => setOpenDropdown(null)}
+              >
+                <NavLink to="/gold-chain" className="block px-4 py-2 hover:bg-yellow-50 hover:underline underline-offset-4">Gold Chain</NavLink>
+                <NavLink to="/gold-bracelet" className="block px-4 py-2 hover:bg-yellow-50 hover:underline underline-offset-4">Gold Bracelet</NavLink>
+                <NavLink to="/gold-ring" className="block px-4 py-2 hover:bg-yellow-50 hover:underline underline-offset-4">Gold Ring</NavLink>
+                <NavLink to="/gold-earring" className="block px-4 py-2 hover:bg-yellow-50 hover:underline underline-offset-4">Gold Earring</NavLink>
+                <NavLink to="/gold-nosering" className="block px-4 py-2 hover:bg-yellow-50 hover:underline underline-offset-4">Gold Nose Ring</NavLink>
+              </div>
+            )}
+          </li>
 
           {/* Silver Dropdown */}
-          <div className="relative group">
+          <li
+            className="relative"
+            onMouseEnter={() => setOpenDropdown('silver')}
+            onMouseLeave={() => setOpenDropdown(null)}
+            style={{ listStyle: 'none' }}
+          >
             <button className="flex flex-col items-center gap-1 hover:underline underline-offset-4">
               <p>SILVER</p>
               <hr className="w-2/4 border-none h-[1.5px] bg-gray-400 hidden" />
             </button>
-            <div className="absolute left-0 top-full min-w-[160px] bg-white shadow-lg rounded z-10 hidden group-hover:block">
-              <NavLink to="/silver-chain" className="block px-4 py-2 hover:bg-gray-50 hover:underline underline-offset-4">Silver Chain</NavLink>
-              <NavLink to="/silver-bracelet" className="block px-4 py-2 hover:bg-gray-50 hover:underline underline-offset-4">Silver Bracelet</NavLink>
-              <NavLink to="/silver-ring" className="block px-4 py-2 hover:bg-gray-50 hover:underline underline-offset-4">Silver Ring</NavLink>
-              <NavLink to="/silver-earring" className="block px-4 py-2 hover:bg-gray-50 hover:underline underline-offset-4">Silver Earring</NavLink>
-              <NavLink to="/silver-nosering" className="block px-4 py-2 hover:bg-gray-50 hover:underline underline-offset-4">Silver Nose Ring</NavLink>
-            </div>
-          </div>
+            {openDropdown === 'silver' && (
+              <div
+                className="absolute left-0 top-full min-w-[160px] bg-white shadow-lg rounded z-50 pointer-events-auto mt-0"
+                onMouseEnter={() => setOpenDropdown('silver')}
+                onMouseLeave={() => setOpenDropdown(null)}
+              >
+                <NavLink to="/silver-chain" className="block px-4 py-2 hover:bg-gray-50 hover:underline underline-offset-4">Silver Chain</NavLink>
+                <NavLink to="/silver-bracelet" className="block px-4 py-2 hover:bg-gray-50 hover:underline underline-offset-4">Silver Bracelet</NavLink>
+                <NavLink to="/silver-ring" className="block px-4 py-2 hover:bg-gray-50 hover:underline underline-offset-4">Silver Ring</NavLink>
+                <NavLink to="/silver-earring" className="block px-4 py-2 hover:bg-gray-50 hover:underline underline-offset-4">Silver Earring</NavLink>
+                <NavLink to="/silver-nosering" className="block px-4 py-2 hover:bg-gray-50 hover:underline underline-offset-4">Silver Nose Ring</NavLink>
+              </div>
+            )}
+          </li>
 
           <NavLink to="/about" className="flex flex-col items-center gap-1 hover:underline underline-offset-4">
             <p>ABOUT</p>

@@ -7,7 +7,7 @@ const Footer = () => {
         <div>
           <img src={assets.logo} alt="" className="mb-5 w-32" />
           <p className="w-full md:w-2/3 text-gray-600">
-          <b>RG Golds</b> is a renowned jewellery business based in Kolkata, celebrated for our commitment to quality craftsmanship and reasonable pricing. With years of experience in the industry, we have become a trusted name for customers seeking authentic gold and silver jewellery that blends tradition with modern elegance.
+          <b>RJ Golds</b> is a renowned jewellery business based in Kolkata, celebrated for our commitment to quality craftsmanship and reasonable pricing. With years of experience in the industry, we have become a trusted name for customers seeking authentic gold and silver jewellery that blends tradition with modern elegance.
           </p>
         </div>
         <div>
@@ -24,14 +24,14 @@ const Footer = () => {
           <p className="text-xl font-medium mb-5">GET IN TOUCH</p>
           <ul className="flex flex-col gap-1 text-gray-600">
             <li>+91 0000000000</li>
-            <li>rgjewelllers@gmail.com</li>
+            <li>rjgolds@gmail.com</li>
             <li>Instagram</li>
           </ul>
         </div>
       </div>
       <div>
         <hr />
-        <p className="py-5 text-md text-center">Copyright 2025 @ Rg Golds - All Rights Reserved.</p>
+        <p className="py-5 text-md text-center">Copyright 2025 @ RJ Golds - All Rights Reserved.</p>
       </div>
     </div>
   );

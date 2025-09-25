@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 const navItems = [
@@ -65,43 +65,57 @@ const navItems = [
 	},
 ];
 
-const Navbar2 = () => (
-	<nav className="w-full bg-white shadow hidden sm:block">
-		<div className="px-2 sm:px-[2vw] md:px-[3vw] lg:px-[4vw] flex items-center h-16">
-			<ul className="flex gap-8">
-				{navItems.map((item) => (
-					<li key={item.label} className="relative group">
-						<button className="flex items-center text-gray-700 font-medium hover:underline decoration-pink-500 underline-offset-4">
-							{item.label}
-							{/* Arrow rotates on hover */}
-							<span className="inline-block ml-2 transition-transform duration-300 group-hover:rotate-180">
-								<svg width="16" height="16" fill="none" viewBox="0 0 24 24">
-									<path
-										d="M7 10l5 5 5-5"
-										stroke="#d6336c"
-										strokeWidth="2"
-										strokeLinecap="round"
-										strokeLinejoin="round"
-									/>
-								</svg>
-							</span>
-						</button>
-						<div className="absolute left-0 top-full min-w-[180px] bg-white shadow-lg rounded z-10 hidden group-hover:block">
-							{item.dropdown.map((drop) => (
-								<Link
-									key={drop.label}
-									to={drop.to}
-									className="block px-4 py-2 text-gray-600 hover:bg-pink-100 hover:text-pink-700 hover:underline underline-offset-4 transition-colors"
-								>
-									{drop.label}
-								</Link>
-							))}
-						</div>
-					</li>
-				))}
-			</ul>
-		</div>
-	</nav>
-);
+const Navbar2 = () => {
+	const [openIndex, setOpenIndex] = useState(null);
+	return (
+		<nav className="w-full bg-white shadow hidden sm:block">
+			<div className="px-2 sm:px-[2vw] md:px-[3vw] lg:px-[4vw] flex items-center h-16">
+				<ul className="flex gap-8">
+					{navItems.map((item, idx) => (
+						<li
+							key={item.label}
+							className="relative"
+							onMouseEnter={() => setOpenIndex(idx)}
+							onMouseLeave={() => setOpenIndex(null)}
+						>
+							<button className="flex items-center text-gray-700 font-medium hover:underline decoration-pink-500 underline-offset-4">
+								{item.label}
+								{/* Arrow rotates on hover */}
+								<span className={`inline-block ml-2 transition-transform duration-300 ${openIndex === idx ? "rotate-180" : ""}`}>
+									<svg width="16" height="16" fill="none" viewBox="0 0 24 24">
+										<path
+											d="M7 10l5 5 5-5"
+											stroke="#d6336c"
+											strokeWidth="2"
+											strokeLinecap="round"
+											strokeLinejoin="round"
+										/>
+									</svg>
+								</span>
+							</button>
+											{openIndex === idx && (
+												<div
+													className="absolute left-0 top-full min-w-[180px] bg-white shadow-lg rounded z-50 pointer-events-auto mt-0"
+													onMouseEnter={() => setOpenIndex(idx)}
+													onMouseLeave={() => setOpenIndex(null)}
+												>
+													{item.dropdown.map((drop) => (
+														<Link
+															key={drop.label}
+															to={drop.to}
+															className="block px-4 py-2 text-gray-600 hover:bg-pink-100 hover:text-pink-700 hover:underline underline-offset-4 transition-colors"
+														>
+															{drop.label}
+														</Link>
+													))}
+												</div>
+											)}
+						</li>
+					))}
+				</ul>
+			</div>
+		</nav>
+	);
+};
 
 export default Navbar2;
