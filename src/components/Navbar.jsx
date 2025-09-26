@@ -129,12 +129,12 @@ const Navbar = () => {
           </motion.span>
         </AnimatePresence>
       </div>
-      <div className="px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]">
-      <div className="flex items-center justify-between py-5 font-medium">
+  <div className="px-4 sm:px-[5vw] md:px-[3vw] lg:px-[3vw] xl:px-[9vw]">
+  <div className="flex items-center justify-between py-5 font-medium md:py-3 md:text-sm lg:py-3 lg:text-sm xl:py-5 xl:text-base">
         <Link to="/">
           <img src={assets.logo} alt="" className="w-36" />
         </Link>
-        <ul className="hidden sm:flex gap-5 text-sm text-gray-700">
+  <ul className="hidden md:flex gap-5 md:gap-3 text-sm md:text-xs lg:gap-3 lg:text-xs xl:gap-5 xl:text-sm text-gray-700">
           <NavLink to="/collection" className="flex flex-col items-center gap-1 hover:underline underline-offset-4">
             <p>COLLECTION</p>
             <hr className="w-2/4 border-none h-[1.5px] bg-gray-700 hidden" />
@@ -203,7 +203,7 @@ const Navbar = () => {
         </ul>
 
         {/* Search Box (Desktop) */}
-        <div className="hidden sm:flex items-center ml-6 navbar-search-box relative">
+  <div className="hidden md:flex items-center ml-6 navbar-search-box relative">
           <input
             type="text"
             value={searchQuery}
@@ -218,10 +218,10 @@ const Navbar = () => {
               if (e.key === "Enter") handleNavbarSearch();
             }}
             placeholder="Search products..."
-            className="border rounded px-14 py-1 text-sm focus:outline-none"
+            className="border rounded px-14 py-1 text-sm focus:outline-none md:px-6 md:py-1 md:w-40 lg:px-6 lg:py-1 lg:w-40 xl:px-14 xl:py-1 xl:w-auto"
           />
           <button
-            className="ml-2 px-3 py-1 bg-gray-700 text-white rounded"
+            className="ml-2 px-3 py-1 bg-gray-700 text-white rounded md:px-2 md:text-xs lg:px-2 lg:text-xs xl:px-3 xl:text-sm"
             onClick={handleNavbarSearch}
           >
             Search
@@ -255,7 +255,7 @@ const Navbar = () => {
           )}
         </div>
 
-        <div className="flex items-center gap-6">
+  <div className="flex items-center gap-6 md:gap-3 lg:gap-3 xl:gap-6">
           {/* Wishlist Icon with label on hover */}
           <div className="relative group flex items-center">
             <Link to="/wishlist">

@@ -66,11 +66,11 @@ const navItems = [
 ];
 
 const Navbar2 = () => {
-	const [openIndex, setOpenIndex] = useState(null);
-	return (
-		<nav className="w-full bg-white shadow hidden sm:block">
-			<div className="px-2 sm:px-[2vw] md:px-[3vw] lg:px-[4vw] flex items-center h-16">
-				<ul className="flex gap-8">
+const [openIndex, setOpenIndex] = useState(null);
+return (
+<nav className="w-full bg-white shadow hidden md:block">
+<div className="px-2 sm:px-[2vw] md:px-[2vw] lg:px-[2vw] xl:px-[4vw] flex items-center h-16 md:h-12 lg:h-12 xl:h-16">
+<ul className="flex gap-8 md:gap-4 lg:gap-4 xl:gap-8 text-base md:text-xs lg:text-xs xl:text-base">
 					{navItems.map((item, idx) => (
 						<li
 							key={item.label}
@@ -78,7 +78,7 @@ const Navbar2 = () => {
 							onMouseEnter={() => setOpenIndex(idx)}
 							onMouseLeave={() => setOpenIndex(null)}
 						>
-							<button className="flex items-center text-gray-700 font-medium hover:underline decoration-pink-500 underline-offset-4">
+							<button className="flex items-center text-gray-700 font-medium hover:underline decoration-pink-500 underline-offset-4 md:text-xs lg:text-xs xl:text-base">
 								{item.label}
 								{/* Arrow rotates on hover */}
 								<span className={`inline-block ml-2 transition-transform duration-300 ${openIndex === idx ? "rotate-180" : ""}`}>
@@ -95,7 +95,7 @@ const Navbar2 = () => {
 							</button>
 											{openIndex === idx && (
 												<div
-													className="absolute left-0 top-full min-w-[180px] bg-white shadow-lg rounded z-50 pointer-events-auto mt-0"
+													className="absolute left-0 top-full min-w-[140px] md:min-w-[120px] lg:min-w-[120px] xl:min-w-[180px] bg-white shadow-lg rounded z-50 pointer-events-auto mt-0"
 													onMouseEnter={() => setOpenIndex(idx)}
 													onMouseLeave={() => setOpenIndex(null)}
 												>
@@ -103,7 +103,7 @@ const Navbar2 = () => {
 														<Link
 															key={drop.label}
 															to={drop.to}
-															className="block px-4 py-2 text-gray-600 hover:bg-pink-100 hover:text-pink-700 hover:underline underline-offset-4 transition-colors"
+															className="block px-4 py-2 text-gray-600 hover:bg-pink-100 hover:text-pink-700 hover:underline underline-offset-4 transition-colors md:text-xs lg:text-xs xl:text-base"
 														>
 															{drop.label}
 														</Link>
