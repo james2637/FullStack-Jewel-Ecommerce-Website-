@@ -1,13 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/title.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>RJ Golds</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/title.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RJ Golds</title>
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
+  <script type="text/javascript">
+    var configuration = {
+      widgetId: "356a69716d52383633373733",
+      tokenAuth: "472838TwrDsMWbHHoG68e7e79aP1",
+      identifier: "enter your phone number",
+      exposeMethods: true,
+      captchaRenderId: "captcha-container",
+      success: (data) => {
+        // get verified token in response
+        console.log('success response', data);
+      },
+      failure: (error) => {
+        // handle error
+        console.log('failure reason', error);
+      },
+
+    };
+  </script>
+  <!-- <div id="captcha-container"></div>
+  <script type="text/javascript" onload="initSendOTP(configuration)"
+    src="https://verify.msg91.com/otp-provider.js"> </script> -->
+</body>
+
 </html>

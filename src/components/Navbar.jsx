@@ -77,7 +77,7 @@ const Navbar = () => {
     localStorage.removeItem("token");
     setToken("");
     setCartItems({});
-    navigate("/login");
+    navigate("/otp-authentication");
   };
 
   // Search handler for navbar search box
@@ -274,7 +274,7 @@ const Navbar = () => {
             <img
               src={assets.profile_icon}
               alt=""
-              onClick={() => (token ? null : navigate("/login"))}
+              onClick={() => (token ? null : navigate("/otp-authentication"))}
               className="w-5 cursor-pointer"
             />
             <span className="absolute left-1/2 -translate-x-1/2 top-full mt-2 px-2 py-1 bg-black text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-20">
@@ -285,7 +285,7 @@ const Navbar = () => {
                 <div className="flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100 text-gray-500 rounded ">
                   <p
                     className="cursor-pointer hover:text-black"
-                    onClick={() => navigate("/login")}
+                    onClick={() => navigate("/")}
                   >
                     My Profile
                   </p>
