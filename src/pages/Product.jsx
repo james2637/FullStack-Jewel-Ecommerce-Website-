@@ -1,17 +1,18 @@
 import React, { useContext, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { ShopContext } from "../context/ShopContext";
 import { useState } from "react";
 import { assets } from "../assets/assets";
 import RelatedProducts from "../components/RelatedProducts";
-import Title from "../components/Title";
+import { toast } from "react-toastify";
 
 const Product = () => {
   const { productId } = useParams();
-  const { products, currency, addToCart } = useContext(ShopContext);
+  const { products, currency, addToCart, token } = useContext(ShopContext);
   const [productData, setProductData] = useState(null);
   const [image, setImage] = useState("");
   const [size, setSize] = useState("");
+  const navigate = useNavigate();
 
   const fetchProductData = async () => {
     products.map((item) => {
@@ -26,6 +27,18 @@ const Product = () => {
   useEffect(() => {
     fetchProductData();
   }, [productId, products]);
+
+  const handleAddToCart = () => {
+    // Check if user is logged in
+    if (!token) {
+      toast.error("Please login to continue");
+      navigate("/account");
+      return;
+    }
+
+    // Add to cart (size check is already in addToCart function)
+    addToCart(productData._id, size);
+  };
 
   return productData ? (
     <div className="border-t-2 pt-10 transition-opacity ease-in duration-500 opacity-100">
@@ -89,7 +102,10 @@ const Product = () => {
             </div>
           </div>
           {/* Add to cart button */}
-          <button className="bg-black text-white px-8 py-3 text-sm active:bg-gray-700" onClick={() => addToCart(productData._id, size)}>
+          <button 
+            className="bg-black text-white px-8 py-3 text-sm active:bg-gray-700" 
+            onClick={handleAddToCart}
+          >
             ADD TO CART
           </button>
           {/* Line */}

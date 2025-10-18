@@ -274,7 +274,7 @@ const Navbar = () => {
             <img
               src={assets.profile_icon}
               alt=""
-              onClick={() => (token ? null : navigate("/otp-authentication"))}
+              onClick={() => (token ? null : navigate("/account"))}
               className="w-5 cursor-pointer"
             />
             <span className="absolute left-1/2 -translate-x-1/2 top-full mt-2 px-2 py-1 bg-black text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-20">

@@ -40,8 +40,8 @@ const loadMsg91Script = () => {
   });
 };
 
-const OtpAuthentication = () => {
-  const { backendUrl, setToken, navigate } = useContext(ShopContext);
+const Account = () => {
+  const { backendUrl, setToken, navigate, getUserCart } = useContext(ShopContext);
 
   // Main signup state
   const [name, setName] = useState('');
@@ -154,6 +154,7 @@ const OtpAuthentication = () => {
               setToken(response.data.token);
               localStorage.setItem("token", response.data.token);
               toast.success("Account created and logged in!");
+              // await getUserCart(response.data.token);
               navigate("/");
             } else {
               toast.error(response.data.message);
@@ -246,6 +247,7 @@ const OtpAuthentication = () => {
               setToken(response.data.token);
               localStorage.setItem("token", response.data.token);
               toast.success("Login successful!");
+              await getUserCart(response.data.token);
               navigate("/");
             } else {
               setLoginStatus('User not found.');
@@ -315,6 +317,7 @@ const OtpAuthentication = () => {
 
         {/* Only one captcha container, always rendered */}
         <div id={CAPTCHA_CONTAINER_ID} style={{ margin: "10px 30px" }}></div>
+        <p className="text-xs text-gray-500 text-center -mt-2">If you don't see the captcha, please <button className='text-blue-500'  onClick={() => window.location.reload()}>refresh</button> the page.</p>
 
         {/* Signup buttons */}
         {!showLoginOtp && !otpSent && (
@@ -479,4 +482,4 @@ const OtpAuthentication = () => {
   );
 };
 
-export default OtpAuthentication;
+export default Account;
