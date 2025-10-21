@@ -18,15 +18,14 @@ const Contact = () => {
         <div className="flex flex-col justify-center items-start gap-6">
           <p className="font-semibold text-xl text-gray-600">Our Store</p>
           <p className="text-gray-500">
-            Shop No. 15,16, First Floor, Select City Walk, Saket, New Delhi -
-            110017 Delhi, New Delhi
+            Ground Floor, Ravi Building, 42E, Rafi Ahmed Kidwai Road, Park St, near Allen Park, opposite to West Bengal Board of Secondary office, Kolkata, West Bengal 700016
           </p>
           <p className="text-gray-500">
-            Tel: 1146521519 <br />
-            Email: admin@forever.com
+            Tel: 9100000000 <br />
+            Email: support@rjgolds.com
           </p>
           <p className="font-semibold text-xl text-gray-600">
-            Careers at Forever
+            Careers at RJ Golds
           </p>
           <p className="text-gray-500">
             Learn more about our teams and job openings.
