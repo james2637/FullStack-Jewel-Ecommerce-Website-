@@ -77,7 +77,7 @@ const Navbar = () => {
     localStorage.removeItem("token");
     setToken("");
     setCartItems({});
-    navigate("/otp-authentication");
+    navigate("/account");
   };
 
   // Search handler for navbar search box

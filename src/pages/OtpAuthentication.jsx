@@ -41,7 +41,7 @@ const loadMsg91Script = () => {
 };
 
 const Account = () => {
-  const { backendUrl, setToken, navigate, getUserCart } = useContext(ShopContext);
+  const { backendUrl, setToken, navigate, getUserCart, getUserWishlist } = useContext(ShopContext);
 
   // Main signup state
   const [name, setName] = useState('');
@@ -248,6 +248,7 @@ const Account = () => {
               localStorage.setItem("token", response.data.token);
               toast.success("Login successful!");
               await getUserCart(response.data.token);
+              await getUserWishlist(response.data.token); 
               navigate("/");
             } else {
               setLoginStatus('User not found.');

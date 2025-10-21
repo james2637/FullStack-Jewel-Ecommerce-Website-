@@ -21,6 +21,7 @@ import Account from "./pages/OtpAuthentication";
 import PlaceOrder from "./pages/PlaceOrder";
 import Navbar from "./components/Navbar";
 import Orders from "./pages/Orders";
+import Wishlist from "./pages/Wishlist";
 import Footer from "./components/Footer";
 import Navbar2 from "./components/Navbar2";
 import { ToastContainer, toast } from 'react-toastify';
@@ -48,6 +49,7 @@ const App = () => {
         <Route path="/contact" element={<Contact />} />
         <Route path="/product/:productId" element={<Product />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/account" element={<Account />} />
         <Route path="/place-order" element={<PlaceOrder />} />
         <Route path="/orders" element={<Orders />} />
