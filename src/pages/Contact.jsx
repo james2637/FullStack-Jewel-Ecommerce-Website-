@@ -9,7 +9,7 @@ const Contact = () => {
       <div className="text-2xl text-center pt-10 border-t">
         <Title text1={"CONTACT"} text2={"US"} />
       </div>
-      <div className="my-10 flex flex-col justify-center md:flex-row gap-10 mb-28">
+      <div className="my-10 px-8 flex flex-col justify-center md:flex-row gap-10 mb-28">
         <img
           src={assets.contact_img}
           alt=""
@@ -22,7 +22,7 @@ const Contact = () => {
           </p>
           <p className="text-gray-500">
             Tel: 9100000000 <br />
-            Email: support@rjgolds.com
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=support@rjgolds.com" target="_blank">Email: support@rjgolds.com</a>
           </p>
           <p className="font-semibold text-xl text-gray-600">
             Careers at RJ Golds

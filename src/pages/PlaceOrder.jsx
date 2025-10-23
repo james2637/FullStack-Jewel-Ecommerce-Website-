@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { ShopContext } from "../context/ShopContext";
 
 const PlaceOrder = () => {
-  const [method, setMethod] = useState("cod");
+  const [method, setMethod] = useState("razorpay");
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -53,10 +53,12 @@ const PlaceOrder = () => {
           }
         }
       }
+      const cashHandlingFee = method === 'cod' ? 99 : 0;
       let orderData = {
         address: formData,
         items: orderItems,
-        amount: getCartAmount() + delivery_fee,
+        amount: getCartAmount() + delivery_fee + cashHandlingFee,
+        cashHandlingFee,
       };
 
       switch (method) {
@@ -75,8 +77,8 @@ const PlaceOrder = () => {
       className="flex flex-col sm:flex-row justify-between gap-4 pt-5 sm:pt-14 min-h-[80vh] border-t"
       onSubmit={onSubmitHandler}
     >
-      {/* Left Side */}
-      <div className="flex flex-col gap-4 w-full sm:max-w-[480px]">
+  {/* Left Side */}
+  <div className="px-4 sm:px-16 flex flex-col gap-4 w-full sm:max-w-[580px]">
         <div className="text-xl sm:text-2xl my-3">
           <Title text1={"DELIVERY"} text2={"INFORMATION"} />
         </div>
@@ -163,31 +165,70 @@ const PlaceOrder = () => {
           onChange={onChangeHandler}
           name="phone"
           value={formData.phone}
-          type="number"
+          type="text"
           placeholder="Phone"
           className="border border-gray-300 rounded py-1.5 px-3.5 w-full"
         />
       </div>
-      {/* Right Side */}
-      <div className="mt-8">
-        <div className="mt-8 min-w-80">
-          <CartTotal />
-        </div>
+  {/* Right Side */}
+  <div className="px-4 sm:px-16 mt-8">
+        {/* build a short preview of cart items to show on the right */}
+        {(() => {
+          // derive a compact list and subtotal from cartItems + products
+          const preview = [];
+          let previewSubtotal = 0;
+          for (const pid in cartItems) {
+            for (const size in cartItems[pid]) {
+              const qty = cartItems[pid][size];
+              if (qty > 0) {
+                const p = products.find((prod) => prod._id === pid);
+                if (p) {
+                  const line = {
+                    _id: pid,
+                    name: p.name,
+                    image: p.image?.[0] || p.image,
+                    price: p.price,
+                    size,
+                    qty,
+                  };
+                  preview.push(line);
+                  previewSubtotal += p.price * qty;
+                }
+              }
+            }
+          }
+          return (
+            <>
+              <div className="border rounded p-3 mb-4 bg-white">
+                <h3 className="font-medium mb-2">Order Summary</h3>
+                {preview.length === 0 ? (
+                  <div className="text-sm text-gray-500">No items in cart</div>
+                ) : (
+                  <div className="flex flex-col gap-3 max-h-56 overflow-auto">
+                    {preview.map((it, idx) => (
+                      <div key={idx} className="flex items-center gap-3">
+                        <img src={it.image} alt="" className="w-12 h-12 object-cover rounded" />
+                        <div className="flex-1 text-sm">
+                          <div className="font-medium truncate">{it.name}</div>
+                          <div className="text-gray-500 text-xs">Qty: {it.qty} • {it.size}</div>
+                        </div>
+                        <div className="text-sm">{it.price * it.qty}</div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+              <div className="mt-8 min-w-80">
+                <CartTotal subtotalOverride={previewSubtotal} extraCharge={method === 'cod' ? 99 : 0} />
+              </div>
+            </>
+          );
+        })()}
         <div className="mt-12">
           <Title text1={"PAYMENT"} text2={"METHOD"} />
           {/* Payment Method Selection*/}
           <div className="flex flex-col gap-3 lg:flex-row">
-            <div
-              className="flex items-center gap-3 border p-2 px-3 cursor-pointer"
-              onClick={() => setMethod("stripe")}
-            >
-              <p
-                className={`min-w-3.5 h-3.5 border rounded-full ${
-                  method === "stripe" ? "bg-green-400" : ""
-                }`}
-              ></p>
-              <img src={assets.stripe_logo} alt="" className="h-5 mx-4" />
-            </div>
+            {/* Stripe removed - only Razorpay and COD available */}
             <div
               className="flex items-center gap-3 border p-2 px-3 cursor-pointer"
               onClick={() => setMethod("razorpay")}

@@ -24,8 +24,8 @@ const Footer = () => {
           <p className="text-xl font-medium mb-5">GET IN TOUCH</p>
           <ul className="flex flex-col gap-1 text-gray-600">
             <li>+91 0000000000</li>
-            <li>rjgolds@gmail.com</li>
-            <li>Instagram</li>
+            <li><a href="https://mail.google.com/mail/?view=cm&fs=1&to=support@rjgolds.com" target="_blank">support@rjgolds.com</a></li>
+            <li><a href="https://www.instagram.com/rjgolds" target="_blank">Instagram</a></li>
           </ul>
         </div>
       </div>

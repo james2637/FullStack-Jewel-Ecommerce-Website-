@@ -27,6 +27,11 @@ const Cart = () => {
       setCartData(tempData);
     }
   }, [cartItems, products]);
+  const subtotal = cartData.reduce((acc, item) => {
+    const productData = products.find((product) => product._id === item._id);
+    return acc + (productData ? productData.price * item.quantity : 0);
+  }, 0);
+
   return (
     <div className="border-t pt-14 px-6">
       <div className="text-2xl mb-3">
@@ -87,12 +92,15 @@ const Cart = () => {
         })}
       </div>
       <div className="flex justify-end my-20">
-        <div className="w-full sm:w-[450px]">
-          <CartTotal />
+          <div className="w-full sm:w-[450px]">
+          <CartTotal subtotalOverride={subtotal} />
           <div className="w-full text-end">
             <button
-              className="bg-black text-white text-sm my-8 px-8 py-3"
-              onClick={() => navigate("/place-order")}
+              className={`text-sm my-8 px-8 py-3 ${subtotal > 0 ? 'bg-black text-white' : 'bg-gray-300 text-gray-600 cursor-not-allowed'}`}
+              onClick={() => {
+                if (subtotal > 0) navigate("/place-order");
+              }}
+              disabled={subtotal === 0}
             >
               PROCEED TO CHECKOUT
             </button>
