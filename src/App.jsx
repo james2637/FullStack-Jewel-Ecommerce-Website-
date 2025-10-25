@@ -19,6 +19,7 @@ import Cart from "./pages/Cart";
 // import Login from "./pages/Login";
 import Account from "./pages/OtpAuthentication";
 import PlaceOrder from "./pages/PlaceOrder";
+import OrderSuccess from "./pages/OrderSuccess";
 import Navbar from "./components/Navbar";
 import Orders from "./pages/Orders";
 import Wishlist from "./pages/Wishlist";
@@ -52,6 +53,8 @@ const App = () => {
         <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/account" element={<Account />} />
         <Route path="/place-order" element={<PlaceOrder />} />
+        <Route path="/order-success" element={<OrderSuccess />} />
+        <Route path="/order/:orderId" element={<OrderSuccess />} />
         <Route path="/orders" element={<Orders />} />
       </Routes>
       <Footer />
