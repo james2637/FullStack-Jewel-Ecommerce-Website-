@@ -25,6 +25,7 @@ import Orders from "./pages/Orders";
 import Wishlist from "./pages/Wishlist";
 import Footer from "./components/Footer";
 import Navbar2 from "./components/Navbar2";
+import PaymentFailed from "./pages/PaymentFailed";
 import { ToastContainer, toast } from 'react-toastify';
 
 const App = () => {
@@ -56,6 +57,7 @@ const App = () => {
         <Route path="/order-success" element={<OrderSuccess />} />
         <Route path="/order/:orderId" element={<OrderSuccess />} />
         <Route path="/orders" element={<Orders />} />
+        <Route path="/payment-failed" element={<PaymentFailed />} />
       </Routes>
       <Footer />
     </div>

@@ -22,7 +22,7 @@ const PlaceOrder = () => {
     phone: "",
   });
 
-  const { backendUrl, cartItems, getCartAmount, delivery_fee, products, token, navigate: ctxNavigate } =
+  const { backendUrl, cartItems, getCartAmount, delivery_fee, products, token, navigate: ctxNavigate, setCartItems, getUserCart } =
     useContext(ShopContext);
   const navigate = useNavigate();
 
@@ -88,7 +88,9 @@ const PlaceOrder = () => {
 
         const scriptLoaded = await loadRazorpayScript();
         if (!scriptLoaded) {
-          alert("Razorpay SDK failed to load.");
+          navigate("/payment-failed", {
+            state: { error: "Failed to initialize payment system. Please try again later." }
+          });
           setLoading(false);
           return;
         }
@@ -102,7 +104,9 @@ const PlaceOrder = () => {
         });
 
         if (!data.success) {
-          alert("Failed to create Razorpay order.");
+          navigate("/payment-failed", {
+            state: { error: "Could not create payment order. Please try again later." }
+          });
           setLoading(false);
           return;
         }
@@ -122,9 +126,9 @@ const PlaceOrder = () => {
           key: "rzp_test_RXMuMs1m7ss1bN", // Replace with your key
           amount: data.order.amount,
           currency: data.order.currency,
-          name: "Your Jewelry Store",
+          name: "RJ Golds",
           description: "Order Payment",
-          image: "/logo.png",
+          image: "assets/logo.png",
           order_id: data.order.id,
           handler: async function (response) {
             try {
@@ -163,6 +167,12 @@ const PlaceOrder = () => {
                 const returnedOrderId = verifyRes.data.orderId || (verifyRes.data.order && verifyRes.data.order._id) || null;
                 const returnedOrder = verifyRes.data.order || null;
 
+                // Clear cart and refresh cart data from server
+                setCartItems({});
+                if (token) {
+                  await getUserCart(token);
+                }
+
                 // Clear loading and navigate to order page
                 setLoading(false);
                 if (returnedOrderId) {
@@ -171,13 +181,16 @@ const PlaceOrder = () => {
                   // Fallback: navigate to a generic order success page with state
                   navigate("/order-success", { state: { payment: verifyRes.data, order: payload.orderDetails } });
                 }
-                return;
               } else {
-                alert("Payment verification failed.");
+                navigate("/payment-failed", {
+                  state: { error: "Payment verification failed. Please try again or contact support." }
+                });
               }
             } catch (err) {
               console.error("Verification error:", err);
-              alert("Verification failed. Please contact support.");
+              navigate("/payment-failed", {
+                state: { error: err.message || "An error occurred during payment verification. Please try again." }
+              });
             } finally {
               setLoading(false);
             }
@@ -193,8 +206,12 @@ const PlaceOrder = () => {
           theme: { color: "#D4AF37" },
           modal: {
             ondismiss: () => {
-              alert("Payment cancelled.");
               setLoading(false);
+              navigate("/payment-failed", { 
+                state: { 
+                  error: "Payment was cancelled. You can try again whenever you're ready." 
+                }
+              });
             },
           },
         };
@@ -203,7 +220,9 @@ const PlaceOrder = () => {
         paymentObject.open();
       } catch (error) {
         console.error("Payment error:", error);
-        alert("Something went wrong.");
+        navigate("/payment-failed", {
+          state: { error: error.message || "An unexpected error occurred. Please try again." }
+        });
         setLoading(false);
       }
     }
@@ -254,7 +273,7 @@ const PlaceOrder = () => {
           onChange={onChangeHandler}
           value={formData.street}
           type="text"
-          placeholder="Street"
+          placeholder="Enter full address"
           className="border border-gray-300 rounded py-1.5 px-3.5 w-full"
         />
 
@@ -313,6 +332,55 @@ const PlaceOrder = () => {
 
       {/* Right Side - Cart + Payment */}
       <div className="px-4 sm:px-16 mt-8">
+        {/* Cart Summary Preview */}
+        {(() => {
+          // derive a compact list and subtotal from cartItems + products
+          const preview = [];
+          let previewSubtotal = 0;
+          for (const pid in cartItems) {
+            for (const size in cartItems[pid]) {
+              const qty = cartItems[pid][size];
+              if (qty > 0) {
+                const p = products.find((prod) => prod._id === pid);
+                if (p) {
+                  const line = {
+                    _id: pid,
+                    name: p.name,
+                    image: p.image?.[0] || p.image,
+                    price: p.price,
+                    size,
+                    qty,
+                  };
+                  preview.push(line);
+                  previewSubtotal += p.price * qty;
+                }
+              }
+            }
+          }
+          return (
+            <>
+              <div className="border rounded p-3 mb-4 bg-white">
+                <h3 className="font-medium mb-2">Order Summary</h3>
+                {preview.length === 0 ? (
+                  <div className="text-sm text-gray-500">No items in cart</div>
+                ) : (
+                  <div className="flex flex-col gap-3 max-h-56 overflow-auto">
+                    {preview.map((it, idx) => (
+                      <div key={idx} className="flex items-center gap-3">
+                        <img src={it.image} alt="" className="w-12 h-12 object-cover rounded" />
+                        <div className="flex-1 text-sm">
+                          <div className="font-medium truncate">{it.name}</div>
+                          <div className="text-gray-500 text-xs">Qty: {it.qty} • {it.size}</div>
+                        </div>
+                        <div className="text-sm">₹{it.price * it.qty}</div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </>
+          );
+        })()}
         <CartTotal extraCharge={method === "cod" ? 99 : 0} />
 
         <div className="mt-12">

@@ -1,7 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useParams, useNavigate } from "react-router-dom";
 import { ShopContext } from "../context/ShopContext";
 import axios from "axios";
+import { FaCheckCircle } from 'react-icons/fa';
 
 const OrderSuccess = () => {
   const location = useLocation();
@@ -44,44 +45,87 @@ const OrderSuccess = () => {
       </div>
     );
 
-  return (
-    <div className="p-6">
-      <h2 className="text-2xl font-semibold mb-4">Order Confirmation</h2>
-      <p className="mb-2">Order ID: <span className="font-medium">{order._id || order.orderId || order.id}</span></p>
-      <p className="mb-4">Amount: <span className="font-medium">{order.amount || order.total || order.orderAmount}</span></p>
+  const navigate = useNavigate();
 
-      <div className="mb-4">
-        <h3 className="font-semibold">Shipping Address</h3>
-        <div>
+  return (
+    <div className="max-w-4xl mx-auto p-6">
+      {/* Success Header */}
+      <div className="text-center mb-8">
+        <FaCheckCircle className="text-green-500 text-6xl mx-auto mb-4" />
+        <h2 className="text-3xl font-semibold mb-2">Order Placed Successfully!</h2>
+        <p className="text-gray-600">Thank you for your purchase. We'll send you a confirmation email shortly.</p>
+      </div>
+
+      {/* Order Details Card */}
+      <div className="bg-white rounded-lg shadow-md p-6 mb-6">
+        <div className="grid grid-cols-2 gap-4 mb-6">
+          <div>
+            <h3 className="text-sm text-gray-600 uppercase">Order ID</h3>
+            <p className="font-medium">{order._id || order.orderId || order.id}</p>
+          </div>
+          <div>
+            <h3 className="text-sm text-gray-600 uppercase">Total Amount</h3>
+            <p className="font-medium">₹{order.amount || order.total || order.orderAmount}</p>
+          </div>
+        </div>
+
+        {/* Shipping Address */}
+        <div className="mb-6">
+          <h3 className="text-sm text-gray-600 uppercase mb-2">Shipping Address</h3>
           {order.address && (
-            <div>
-              <div>{order.address.firstName} {order.address.lastName}</div>
-              <div>{order.address.street}</div>
-              <div>{order.address.city}, {order.address.state} - {order.address.zipcode}</div>
-              <div>{order.address.country}</div>
+            <div className="bg-gray-50 p-3 rounded">
+              <div className="font-medium">{order.address.firstName} {order.address.lastName}</div>
+              <div className="text-gray-600">{order.address.street}</div>
+              <div className="text-gray-600">{order.address.city}, {order.address.state} - {order.address.zipcode}</div>
+              <div className="text-gray-600">{order.address.country}</div>
+              {order.address.phone && <div className="text-gray-600 mt-1">Phone: {order.address.phone}</div>}
             </div>
           )}
         </div>
-      </div>
 
-      <div>
-        <h3 className="font-semibold mb-2">Items</h3>
-        <ul>
-          {(order.items || []).map((it, idx) => (
-            <li key={idx} className="mb-2 border p-2 rounded">
-              <div className="flex justify-between">
-                <div>
-                  <div className="font-medium">{it.name}</div>
-                  <div className="text-sm text-gray-500">Size: {it.size}</div>
+        {/* Order Items */}
+        <div>
+          <h3 className="text-sm text-gray-600 uppercase mb-3">Order Items</h3>
+          <div className="space-y-3">
+            {(order.items || []).map((it, idx) => (
+              <div key={idx} className="flex items-center gap-4 bg-gray-50 p-3 rounded">
+                <div className="w-16 h-16">
+                  <img 
+                    src={it.image} 
+                    alt={it.name} 
+                    className="w-full h-full object-cover rounded"
+                  />
                 </div>
-                <div>
-                  <div className="font-medium">Qty: {it.quantity}</div>
-                  <div className="text-sm">Price: {it.price}</div>
+                <div className="flex-1">
+                  <div className="font-medium">{it.name}</div>
+                  <div className="text-sm text-gray-600">
+                    Size: {it.size} • Qty: {it.quantity}
+                  </div>
+                </div>
+                <div className="text-right">
+                  <div className="font-medium">₹{it.price * it.quantity}</div>
+                  <div className="text-sm text-gray-600">₹{it.price} each</div>
                 </div>
               </div>
-            </li>
-          ))}
-        </ul>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Navigation Buttons */}
+      <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        <button 
+          onClick={() => navigate('/collection')}
+          className="px-6 py-3 bg-black text-white rounded hover:bg-gray-800 transition-colors"
+        >
+          Continue Shopping
+        </button>
+        <button 
+          onClick={() => navigate('/orders')}
+          className="px-6 py-3 border-2 border-black text-black rounded hover:bg-gray-100 transition-colors"
+        >
+          Go to My Orders
+        </button>
       </div>
     </div>
   );
