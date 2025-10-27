@@ -33,6 +33,8 @@ const Product = () => {
   };
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+
     fetchProductData();
   }, [productId, products]);
 
@@ -45,6 +47,9 @@ const Product = () => {
     }
 
     // Add to cart (size check is already in addToCart function)
+    if(size){
+      toast.success("Added to cart");
+    }
     addToCart(productData._id, size);
   };
 

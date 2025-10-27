@@ -77,7 +77,40 @@ const PlaceOrder = () => {
 
     // ✅ COD case
     if (method === "cod") {
-      alert("Cash on Delivery selected! Order placed successfully.");
+      // Build a compact items array
+      const itemsPayload = orderItems.map((it) => ({
+        _id: it._id,
+        name: it.name,
+        price: it.price,
+        size: it.size,
+        quantity: it.quantity,
+        image: it.image || (it.images && it.images[0]) || "",
+      }));
+
+      // Helper to decode userId from token (if present)
+      const decodeUserId = (tkn) => {
+        try {
+          if (!tkn) return null;
+          const payload = JSON.parse(atob(tkn.split(".")[1]));
+          return payload._id || payload.id || payload.userId || null;
+        } catch (e) {
+          return null;
+        }
+      };
+
+      const userId = decodeUserId(token);
+      
+      // Navigate to COD confirmation page with order details
+      navigate("/cod-confirmation", {
+        state: {
+          orderDetails: {
+            userId,
+            items: itemsPayload,
+            amount: totalAmount,
+            address: formData,
+          }
+        }
+      });
       return;
     }
 

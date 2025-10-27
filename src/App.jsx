@@ -26,6 +26,7 @@ import Wishlist from "./pages/Wishlist";
 import Footer from "./components/Footer";
 import Navbar2 from "./components/Navbar2";
 import PaymentFailed from "./pages/PaymentFailed";
+import CodOrderConfirmation from "./pages/CodOrderConfirmation";
 import { ToastContainer, toast } from 'react-toastify';
 
 const App = () => {
@@ -55,9 +56,12 @@ const App = () => {
         <Route path="/account" element={<Account />} />
         <Route path="/place-order" element={<PlaceOrder />} />
         <Route path="/order-success" element={<OrderSuccess />} />
+  {/* Accept both /order-success and /order-success/:orderId so navigations work */}
+        <Route path="/order-success/:orderId" element={<OrderSuccess />} />
         <Route path="/order/:orderId" element={<OrderSuccess />} />
         <Route path="/orders" element={<Orders />} />
         <Route path="/payment-failed" element={<PaymentFailed />} />
+        <Route path="/cod-confirmation" element={<CodOrderConfirmation />} />
       </Routes>
       <Footer />
     </div>
