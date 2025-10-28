@@ -16,8 +16,10 @@ const Orders = () => {
     const fetchOrders = async () => {
       setLoading(true);
       try {
+        // prefer context token but fall back to localStorage (prevents reload race)
+        const authToken = token || localStorage.getItem("token");
         const res = await axios.get(`${backendUrl}/api/order/myorders`, {
-          headers: token ? { token } : {},
+          headers: authToken ? { token: authToken } : {},
         });
 
         // backend may return list under res.data.orders or res.data.data

@@ -16,8 +16,10 @@ const OrderDetails = () => {
 
     const fetchOrder = async () => {
       try {
+        // Prefer context token but fallback to localStorage to avoid race on page reload
+        const authToken = token || localStorage.getItem("token");
         const res = await axios.get(`${backendUrl}/api/order/order-details/${orderId}`, {
-          headers: token ? { token } : {},
+          headers: authToken ? { token: authToken } : {},
         });
         if (res.data.success) {
           setOrder(res.data.order);
